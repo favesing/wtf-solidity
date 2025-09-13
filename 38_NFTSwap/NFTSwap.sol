@@ -38,6 +38,7 @@ contract NFTSwap is IERC721Receiver {
     // NFT Order映射
     mapping(address => mapping(uint256 => Order)) public nftList;
 
+    receive() external payable {}
     fallback() external payable {}
 
     // 挂单: 卖家上架NFT，合约地址为_nftAddr，tokenId为_tokenId，价格_price为以太坊（单位是wei）
@@ -118,11 +119,11 @@ contract NFTSwap is IERC721Receiver {
 
     // 实现{IERC721Receiver}的onERC721Received，能够接收ERC721代币
     function onERC721Received(
-        address operator,
-        address from,
-        uint tokenId,
-        bytes calldata data
-    ) external override returns (bytes4) {
+        address /*operator*/,
+        address /*from*/,
+        uint /*tokenId*/,
+        bytes calldata /*data*/
+    ) external pure override returns (bytes4) {
         return IERC721Receiver.onERC721Received.selector;
     }
 }
