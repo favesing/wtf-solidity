@@ -22,6 +22,7 @@ contract Random is ERC721, VRFConsumerBaseV2{
      * 网络: Sepolia测试网
      * Chainlink VRF Coordinator 地址: 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625
      * LINK 代币地址: 0x01BE23585060835E02B77ef475b0Cc51aA1e0709
+     *              0x779877A7B0D9E8603169DdbD7836e478b4624789
      * 30 gwei Key Hash: 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c
      * Minimum Confirmations 最小确认块数 : 3 （数字大安全性高，一般填12）
      * callbackGasLimit gas限制 : 最大 2,500,000
@@ -38,11 +39,12 @@ contract Random is ERC721, VRFConsumerBaseV2{
     // 记录VRF申请标识对应的mint地址
     mapping(uint256 => address) public requestToSender;
 
-    constructor(uint64 s_subId) 
-        VRFConsumerBaseV2(vrfCoordinator)
-        ERC721("WTF Random", "WTF"){
-            COORDINATOR = VRFCoordinatorV2Interface(vrfCoordinator);
-            subId = s_subId;
+    constructor(string memory s_subId) 
+    VRFConsumerBaseV2(vrfCoordinator)
+    ERC721("WTF Random", "WTF")
+    {
+        COORDINATOR = VRFCoordinatorV2Interface(vrfCoordinator);
+        subId = uint64(bytes8(bytes(s_subId)));
     }
 
     /** 
@@ -101,7 +103,8 @@ contract Random is ERC721, VRFConsumerBaseV2{
      * VRF的回调函数，由VRF Coordinator调用
      * 消耗随机数的逻辑写在本函数中
      */
-    function fulfillRandomWords(uint256 requestId, uint256[] memory s_randomWords) internal override{
+    function fulfillRandomWords(uint256 requestId, uint256[] memory s_randomWords) 
+    internal override{
         address sender = requestToSender[requestId]; // 从requestToSender中获取minter用户地址
         uint256 tokenId = pickRandomUniqueId(s_randomWords[0]); // 利用VRF返回的随机数生成tokenId
         _mint(sender, tokenId);
