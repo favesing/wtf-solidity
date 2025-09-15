@@ -17,6 +17,9 @@ contract Proxy {
         implementation = implementation_;
     }
 
+    receive() external payable{
+        _delegate();
+    }
     /**
      * @dev 回调函数，调用`_delegate()`函数将本合约的调用委托给 `implementation` 合约
      */

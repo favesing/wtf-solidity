@@ -15,6 +15,10 @@ contract SimpleUpgrade {
         implementation = _implementation;
     }
 
+    receive() external payable { 
+        (bool success, bytes memory data) = implementation.delegatecall(msg.data);
+    }
+
     // fallback函数，将调用委托给逻辑合约
     fallback() external payable {
         (bool success, bytes memory data) = implementation.delegatecall(msg.data);
