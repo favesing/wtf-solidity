@@ -1,0 +1,32 @@
+
+remix 默认账户
+account: 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
+account2: 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2
+
+------------------------------------------------------
+metamask 测试账户(Sepolia)
+account-test-01: 0x5768a5Ef0286A154b7da341b7C928f2f2232Fff4
+account-test-02: 0xf4A560317A71F3a23f9c944fc8c024B1b43655A0
+
+链接metamask账户进行签名
+ethereum.enable()
+1.消息Hash
+	account = "0x5768a5Ef0286A154b7da341b7C928f2f2232Fff4"
+	tokenId = 0
+	keccak256(abi.encodePacked(account, tokenId))
+		hash = "0xfa2f536a8f2a21b487df911f052733445fe42e8370bd3f1f8f3a629593d3d52b"
+		
+2.ETH消息Hash
+	keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", _messageHash))
+		ethMsgHash = "0x8b47f3265075b90d939154f99a0949817b449949d748c4f33c5474267b041061"
+		
+3.钱包私钥签名: 输入消息Hash,钱包自动转换成ETH消息Hash,再进行签名
+	ethereum.request({method: "personal_sign", params: [account, hash]})
+		0x3a0577f72ee6012d5c27360364107bd55cef099cd6fe823765feab4c758c80251615d3b18cf252bf5fcb70e016a7c33be722ce4f799003b18dc36748821187481c
+	
+4.恢复signer
+	ecrecovere(ethMsgHash, signature)
+		signer = "0x5768a5Ef0286A154b7da341b7C928f2f2232Fff4"
+
+	
+		 

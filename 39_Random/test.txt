@@ -1,0 +1,8 @@
+Welcome to Chainlink VRF!
+We require a signature in order to ensure you are the owner of the subscription.
+Wallet address:
+    0x5768a5ef0286a154b7da341b7c928f2f2232fff4
+VRF Coordinator address:
+    0x9ddfaca8183c41ad55329bdeed9f6a8d53168b1b
+Subscription ID:
+    53697372818589236214391704940187344223547348288416308172757501546089713947438
