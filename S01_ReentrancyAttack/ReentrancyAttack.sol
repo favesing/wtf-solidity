@@ -54,6 +54,10 @@ contract Attack {
     function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
+
+    function withdraw() external {
+        payable(msg.sender).transfer(address(this).balance);
+    }
 }
 
 // 利用 检查-影响-交互模式（checks-effect-interaction）防止重入攻击

@@ -1,9 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 contract Token {
+  using SafeMath for uint256;
+
   mapping(address => uint) balances;
   uint public totalSupply;
+  uint8 public num;
 
   constructor(uint _initialSupply) {
     balances[msg.sender] = totalSupply = _initialSupply;
@@ -19,5 +24,15 @@ contract Token {
   }
   function balanceOf(address _owner) public view returns (uint balance) {
     return balances[_owner];
+  }
+  function setNum(uint8 n) public {
+    unchecked
+    {
+      num = 0-n;
+    }
+  }
+  function safe(uint256 _value) public returns(uint256 z){
+    balances[msg.sender] -= _value;
+    return balances[msg.sender];
   }
 }

@@ -6,6 +6,8 @@ contract Pair{
     address public token0; // 代币1
     address public token1; // 代币2
 
+    event Log(string name, address f);
+
     constructor() payable {
         factory = msg.sender;
     }
@@ -13,14 +15,22 @@ contract Pair{
     // called once by the factory at time of deployment
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, 'UniswapV2: FORBIDDEN'); // sufficient check
+        emit Log("Pair", factory);
         token0 = _token0;
         token1 = _token1;
+    }
+
+    function getFacotry() external view returns(address){
+        return factory;
     }
 }
 
 contract PairFactory2{
     mapping(address => mapping(address => address)) public getPair; // 通过两个代币地址查Pair地址
     address[] public allPairs; // 保存所有Pair地址
+
+    address public factory1;
+    address public factory2;
 
     function createPair2(address tokenA, address tokenB) external returns (address pairAddr) {
         require(tokenA != tokenB, 'IDENTICAL_ADDRESSES'); //避免tokenA和tokenB相同产生的冲突

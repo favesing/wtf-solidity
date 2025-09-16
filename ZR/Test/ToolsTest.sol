@@ -18,4 +18,8 @@ contract ToolsTest {
     function encodeAbi(bytes4 msign, address addr, uint256 amount) external pure returns(bytes memory){
         return abi.encodeWithSelector(msign, addr, amount);
     }
+
+    function convertToBytes(string memory str) external pure returns(bytes memory){
+        return bytes(str);
+    }
 }
