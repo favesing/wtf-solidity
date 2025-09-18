@@ -17,6 +17,7 @@ pragma solidity >=0.6.0 <0.8.0;
  * is concerned).
  *
  * This contract is only required for intermediate, library-like contracts.
+ * BAYC.sol 是一个用于创建、铸造和管理 10,000 只独一无二的“无聊猿”NFT 的智能合约。
  */
 abstract contract Context {
     function _msgSender() internal view virtual returns (address payable) {
